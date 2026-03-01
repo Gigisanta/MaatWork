@@ -1,10 +1,8 @@
-import { NextResponse } from 'next/server';
-// import { requireFounder } from "@maatwork/auth/middleware"; // Assuming this comes from your UI/Auth packages
+import { requireFounder } from "@maatwork/auth/middleware";
+import type { NextRequest } from 'next/server';
 
-export async function middleware() {
-  // For the scaffold, pass through successfully
-  // return requireFounder(req);
-  return NextResponse.next();
+export async function middleware(req: NextRequest) {
+  return await requireFounder(req as any);
 }
 
 export const config = {

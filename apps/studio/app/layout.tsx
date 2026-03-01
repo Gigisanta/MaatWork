@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Maatwork Studio",
   description: "Internal HQ for Maatwork",

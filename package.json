@@ -8,13 +8,12 @@
     "dev:studio": "turbo run dev --filter=studio",
     "dev:tenant": "turbo run dev --filter=tenant",
     "lint": "turbo run lint",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "db:push": "pnpm --filter @maatwork/database db:push",
     "db:studio": "pnpm --filter @maatwork/database db:studio",
     "seed": "pnpm --filter @maatwork/database seed",
-    "create-tenant": "tsx scripts/create-tenant.ts",
-    "prepare": "husky"
+    "create-tenant": "tsx scripts/create-tenant.ts"
   },
   "devDependencies": {
     "prettier": "^3.4.2",

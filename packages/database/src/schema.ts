@@ -2,11 +2,12 @@ import { pgTable, text, timestamp, boolean, jsonb, decimal } from 'drizzle-orm/p
 
 export const tenants = pgTable('tenants', {
   id: text('id').primaryKey(),
-  slug: text('slug').unique().notNull(),
-  name: text('name').notNull(),
-  template: text('template').$type<'natatorio' | 'peluqueria'>().notNull(),
+  slug: text("slug").notNull().unique(),
+  name: text("name").notNull(),
+  domain: text("domain").unique(), // Custom domain (optional)
+  template: text("template", { enum: ["base", "natatorio", "peluqueria"] }).notNull().default("base"),
   config: jsonb('config'),
-  createdAt: timestamp('created_at').defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
 export const users = pgTable('users', {
