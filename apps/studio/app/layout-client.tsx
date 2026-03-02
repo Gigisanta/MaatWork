@@ -15,6 +15,7 @@ import {
   Receipt,
   Building2,
   ArrowLeftRight,
+  Activity,
   ShieldAlert,
   BarChart3
 } from "lucide-react";
@@ -30,6 +31,7 @@ const studioNav: NavItem[] = [
   { title: "Pipeline", href: "/pipeline", icon: GitMerge },
   { title: "Apps", href: "/apps", icon: Building2 },
   { title: "Templates", href: "/templates", icon: LayoutDashboard },
+  { title: "Salud", href: "/health", icon: Activity },
   { title: "Clientes", href: "/clients", icon: Users },
   { title: "Facturación", href: "/billing", icon: Receipt },
   { title: "Auditoría", href: "/audit", icon: ShieldAlert },

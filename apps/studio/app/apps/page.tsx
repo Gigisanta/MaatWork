@@ -4,13 +4,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Badge } 
 import { Button } from "@maatwork/ui";
 import Link from "next/link";
 import { eq, sql } from "drizzle-orm";
+import { cache } from "react";
 
 import { AppStatusToggle } from "./components/app-status-toggle";
 import { Github, ExternalLink, ShieldCheck, Activity, Database } from "lucide-react";
 
-export default async function AppsPage() {
-  // Optimized single query to fetch all apps with their MRR and status
-  const appsWithStats = await db
+const getAppsWithStats = cache(async () => {
+  return await db
     .select({
       id: apps.id,
       name: apps.name,
@@ -35,6 +35,11 @@ export default async function AppsPage() {
       ), 'inactive')`
     })
     .from(apps);
+});
+
+export default async function AppsPage() {
+  // Optimized single query to fetch all apps with their MRR and status
+  const appsWithStats = await getAppsWithStats();
 
   return (
     <div className="space-y-6">

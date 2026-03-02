@@ -3,7 +3,7 @@
 import { db } from "@maatwork/database";
 import { apps, templates, activity_logs } from "@maatwork/database/schema";
 import { eq, and, ne } from "drizzle-orm";
-import { compareCommits, createPullRequest, getGitHubRepoMeta } from "../../lib/github";
+import { compareCommits, createPullRequest, getGitHubRepoMeta } from "@maatwork/infra";
 import { revalidatePath } from "next/cache";
 
 /**

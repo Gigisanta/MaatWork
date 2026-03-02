@@ -21,7 +21,7 @@ export async function getGitHubRepoMeta(repo: string): Promise<GitHubRepoMeta | 
     if (!res.ok) return null;
 
     const data = await res.json();
-    
+
     // Also get the latest commit SHA
     const commitsRes = await fetch(`https://api.github.com/repos/${repo}/commits?per_page=1`, {
         headers: {

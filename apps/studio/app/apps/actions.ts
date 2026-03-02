@@ -7,9 +7,13 @@ import { apps, users, pricing_plans, app_subscriptions, activity_logs, audit_log
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { createRepoFromTemplate, getGitHubRepoMeta } from "../../lib/github";
-import { createVercelProject, setVercelEnvVar } from "../../lib/vercel";
-import { createNeonProject } from "../../lib/neon";
+import {
+  createRepoFromTemplate,
+  getGitHubRepoMeta,
+  createVercelProject,
+  setVercelEnvVar,
+  createNeonProject
+} from "@maatwork/infra";
 
 const createAppSchema = z.object({
   name: z.string().min(2, "Nombre muy corto"),

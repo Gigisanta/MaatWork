@@ -110,11 +110,16 @@ import { getTodos } from "./todo-actions";
 import { TodoList } from "./components/todo-list";
 import { activity_logs } from "@maatwork/database/schema";
 import { desc } from "drizzle-orm";
+import { cache } from "react";
+
+const getRecentLogs = cache(async () => {
+  return await db.select().from(activity_logs).orderBy(desc(activity_logs.createdAt)).limit(10);
+});
 
 export default async function StudioHomePage() {
   const [todos, logs] = await Promise.all([
     getTodos(),
-    db.select().from(activity_logs).orderBy(desc(activity_logs.createdAt)).limit(10)
+    getRecentLogs()
   ]);
 
   const activityItems: ActivityItem[] = logs.map(log => ({

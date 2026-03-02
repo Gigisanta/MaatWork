@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, Badge, Button } from "@maatwork/ui";
 import { Github, ExternalLink, GitBranch, Star, Activity, Database } from "lucide-react";
-import { getGitHubRepoMeta } from "../../../lib/github";
-import { getVercelProjectMeta } from "../../../lib/vercel";
+import { getGitHubRepoMeta, getVercelProjectMeta } from "@maatwork/infra";
 
 import { ProjectHubProps } from "./project-hub-types";
 import { LinkProjectForm } from "./link-project-form";
