@@ -99,7 +99,8 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
                 <div className="flex items-center gap-4 flex-1">
                   <button 
                     onClick={() => startTransition(() => toggleTodo(todo.id, !todo.completed))}
-                    className="p-1 hover:text-primary transition-colors"
+                    className="p-1 hover:text-primary transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full outline-none"
+                    aria-label={todo.completed ? `Mark as pending: ${todo.text}` : `Complete task: ${todo.text}`}
                   >
                     {todo.completed ? (
                       <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -131,7 +132,9 @@ export function TodoList({ initialTodos }: { initialTodos: Todo[] }) {
                   variant="ghost" 
                   size="icon" 
                   onClick={() => startTransition(() => deleteTodo(todo.id))}
-                  className="text-white/20 hover:text-red-500 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all"
+                  className="text-white/20 hover:text-red-500 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-all focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-red-500"
+                  aria-label={`Delete task: ${todo.text}`}
+                  title={`Delete task: ${todo.text}`}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>

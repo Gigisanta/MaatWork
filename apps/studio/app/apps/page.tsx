@@ -112,7 +112,14 @@ export default async function AppsPage() {
                   <TableCell className="text-center">
                     <div className="flex items-center justify-center gap-2">
                         {t.githubRepo ? (
-                            <a href={`https://github.com/${t.githubRepo}`} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg bg-white/[0.03] border border-white/5 text-white/40 hover:text-white hover:border-white/20 transition-all">
+                            <a
+                                href={`https://github.com/${t.githubRepo}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-1.5 rounded-lg bg-white/[0.03] border border-white/5 text-white/40 hover:text-white hover:border-white/20 transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 outline-none"
+                                aria-label={`View GitHub repository for ${t.name}`}
+                                title={`View GitHub repository for ${t.name}`}
+                            >
                                 <Github className="h-3.5 w-3.5" />
                             </a>
                         ) : (
@@ -121,10 +128,11 @@ export default async function AppsPage() {
                         {t.vercelUrl ? (
                             <a
                                 href={t.slug ? `https://vercel.com/giolivo/${t.slug.startsWith('maat-') ? t.slug : `maat-${t.slug}`}` : t.vercelUrl}
-                                title="Vercel Dashboard"
+                                title={`View Vercel dashboard for ${t.name}`}
+                                aria-label={`View Vercel dashboard for ${t.name}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-1.5 rounded-lg bg-white/[0.03] border border-white/5 text-white/40 hover:text-white hover:border-white/20 transition-all"
+                                className="p-1.5 rounded-lg bg-white/[0.03] border border-white/5 text-white/40 hover:text-white hover:border-white/20 transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 outline-none"
                             >
                                 <ExternalLink className="h-3.5 w-3.5" />
                             </a>
@@ -134,10 +142,11 @@ export default async function AppsPage() {
                         {t.neonUrl ? (
                             <a
                                 href="https://console.neon.tech/app/projects"
-                                title="Neon Console"
+                                title={`View Neon console for ${t.name}`}
+                                aria-label={`View Neon console for ${t.name}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-1.5 rounded-lg bg-white/[0.03] border border-white/5 text-white/40 hover:text-white hover:border-white/20 transition-all"
+                                className="p-1.5 rounded-lg bg-white/[0.03] border border-white/5 text-white/40 hover:text-white hover:border-white/20 transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 outline-none"
                             >
                                 <Database className="h-3.5 w-3.5" />
                             </a>
