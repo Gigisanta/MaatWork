@@ -5,9 +5,8 @@
   "scripts": {
     "build": "turbo run build",
     "pre-dev": "tsx scripts/pre-dev.ts",
-    "dev": "pnpm pre-dev && turbo run dev",
+    "dev": "pnpm pre-dev && turbo run dev --filter=studio",
     "dev:studio": "pnpm pre-dev && turbo run dev --filter=studio",
-    "dev:app": "pnpm pre-dev && turbo run dev --filter=app",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
