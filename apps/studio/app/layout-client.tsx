@@ -8,6 +8,7 @@ import {
   NavItem, 
   HubContextSwitcher 
 } from "@maatwork/ui";
+import { GlobalSearch } from "./components/search/global-search";
 import { 
   LayoutDashboard, 
   Users, 
@@ -82,6 +83,9 @@ export default function HubLayoutClient({
           </aside>
 
           <div className="flex flex-col flex-1 min-w-0 relative">
+            <header className="hidden md:flex h-16 items-center justify-end px-12 border-b border-white/5 bg-black/40 backdrop-blur-xl z-40">
+                <GlobalSearch />
+            </header>
             <header className="md:hidden flex h-16 items-center justify-between px-6 border-b border-white/5 bg-black/40 backdrop-blur-xl z-40">
                <div className="font-bold text-lg tracking-tight bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
                 MAATWORK

@@ -1,6 +1,7 @@
 import { getGlobalBillingData } from "./billing-actions";
-import { Card, CardContent, CardHeader, CardTitle, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Badge } from "@maatwork/ui";
+import { Card, CardContent, CardHeader, CardTitle, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Badge, Button } from "@maatwork/ui";
 import { CreditCard, TrendingUp, AlertCircle, FileText } from "lucide-react";
+import { CreateInvoiceDialog } from "./components/create-invoice-dialog";
 
 export default async function BillingPage() {
   const { stats, recentInvoices, apps } = await getGlobalBillingData();
@@ -13,6 +14,7 @@ export default async function BillingPage() {
         </h1>
         <p className="text-muted-foreground italic text-sm">Control financiero global y conciliación de pagos.</p>
       </div>
+      <CreateInvoiceDialog apps={apps} />
 
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="border-white/5 bg-black/40 backdrop-blur-3xl">

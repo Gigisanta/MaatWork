@@ -29,3 +29,5 @@ export * from "./components/ui/hub-context-switcher";
 export * from "./components/ui/glass-card";
 export * from "./components/ui/checkbox";
 export * from "./components/ui/textarea";
+export * from "./components/ui/tabs";
+export * from "./components/ui/command";

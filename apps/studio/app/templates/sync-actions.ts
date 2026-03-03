@@ -68,12 +68,25 @@ export async function syncAppWithTemplate(appId: string) {
   // so we might need a more complex strategy for "syncing" if they are different repos.
   // Standard way: Create a PR with the changes.
 
+  const protectedPaths = (template.protectedPaths as string[]) || [];
+  const protectedPathsList = protectedPaths.length > 0
+    ? `\n\n⚠️ **Rutas Protegidas Detectadas:**\n${protectedPaths.map(p => `- ${p}`).join('\n')}\nPor favor, revisa manualmente los archivos en estas rutas para no sobrescribir personalizaciones de marca del cliente.`
+    : '';
+
   const prUrl = await createPullRequest(
     app.githubRepo,
-    "🚀 Maatwork Hub: Actualización de Plantilla Core",
-    `${template.githubRepo.split('/')[0]}:main`, // This assumes cross-repo PR permission or same owner
+    `🚀 Maatwork Hub: Sync Core [${template.name}]`,
+    `${template.githubRepo.split('/')[0]}:main`,
     "main",
-    "Esta es una actualización automática desde el Maatwork Hub para sincronizar mejoras de seguridad, performance o nuevas funcionalidades de la plantilla core."
+    `Esta es una actualización automática desde el **Maatwork Hub** para sincronizar la aplicación con su núcleo original.
+
+**Cambios incluidos:**
+- Mejoras de Seguridad
+- Optimizaciones de Performance
+- Nuevas funcionalidades de la plantilla core [${template.id}]
+${protectedPathsList}
+
+*Generado automáticamente por Maatwork Studio.*`
   );
 
   if (prUrl) {

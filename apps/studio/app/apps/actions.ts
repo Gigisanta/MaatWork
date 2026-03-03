@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { founderActionClient } from "@maatwork/auth/safe-action";
 import { db } from "@maatwork/database";
-import { apps, users, pricing_plans, app_subscriptions, activity_logs, audit_logs } from "@maatwork/database/schema";
+import { apps, users, pricing_plans, app_subscriptions, activity_logs, audit_logs, app_invoices } from "@maatwork/database/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
@@ -150,6 +150,15 @@ export const createAppAction = founderActionClient
         userId: session.user.id,
         action: "APP_LAUNCHED",
         details: { name, template, autoProvision, timestamp: new Date().toISOString() }
+      });
+
+      // 4. Initial Setup Invoice (Lead Lifecycle Close)
+      await tx.insert(app_invoices).values({
+        id: crypto.randomUUID(),
+        appId: appId,
+        amount: "50000.00", // Default Setup Fee
+        currency: "ARS",
+        status: "open",
       });
 
       // Audit Log

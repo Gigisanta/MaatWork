@@ -1,8 +1,41 @@
 "use server";
 
 import { db } from "@maatwork/database";
-import { app_invoices, apps } from "@maatwork/database/schema";
+import { app_invoices, apps, activity_logs } from "@maatwork/database/schema";
 import { sql, eq, desc } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
+import { auth } from "@maatwork/auth";
+
+export async function createInvoiceAction(data: { appId: string, amount: string, currency: string }) {
+    const session = await auth();
+    if (!session?.user) return { success: false, error: "Unauthorized" };
+
+    try {
+        const id = crypto.randomUUID();
+        await db.insert(app_invoices).values({
+            id,
+            appId: data.appId,
+            amount: data.amount,
+            currency: data.currency,
+            status: 'open',
+        });
+
+        await db.insert(activity_logs).values({
+            id: crypto.randomUUID(),
+            appId: data.appId,
+            userId: session.user.id,
+            action: 'INVOICE_CREATED_MANUAL',
+            details: { amount: data.amount, currency: data.currency, timestamp: new Date().toISOString() }
+        });
+
+        revalidatePath("/billing");
+        revalidatePath(`/apps/${data.appId}`);
+        return { success: true };
+    } catch (error) {
+        console.error(error);
+        return { success: false };
+    }
+}
 
 export async function getGlobalBillingData() {
   const [

@@ -16,6 +16,8 @@ export const apps = pgTable('apps', {
   provisioningStatus: text('provisioning_status', { enum: ['pending', 'provisioning', 'active', 'failed'] }).default('pending'),
   templateCommitSha: text('template_commit_sha'),
   lastSyncAt: timestamp('last_sync_at'),
+  healthStatus: text('health_status', { enum: ['healthy', 'degraded', 'failing', 'unknown'] }).default('unknown'),
+  lastHealthCheckAt: timestamp('last_health_check_at'),
   isInternal: boolean('is_internal').default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });
@@ -26,6 +28,7 @@ export const templates = pgTable('templates', {
   githubRepo: text('github_repo').notNull(),
   description: text('description'),
   category: text('category'), // e.g., 'fitness', 'beauty', 'saas'
+  protectedPaths: jsonb('protected_paths').default(['src/styles', 'public/brand']), // Paths to NOT overwrite or warn about
   createdAt: timestamp('created_at').defaultNow(),
 });
 

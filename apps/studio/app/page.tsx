@@ -125,11 +125,11 @@ export default async function StudioHomePage() {
   const activityItems: ActivityItem[] = logs.map(log => ({
     id: log.id,
     title: log.action.replace(/_/g, ' '),
-    description: JSON.stringify(log.details),
+    description: log.details && typeof log.details === 'object' ? Object.entries(log.details).map(([k, v]) => `${k}: ${v}`).join(', ') : '',
     timestamp: log.createdAt?.toLocaleString() || "Reciente",
-    icon: log.action.includes('APP') ? <Building2 /> : 
-          log.action.includes('SECURITY') ? <CheckCircle2 /> :
-          log.action.includes('PAYMENT') ? <AlertCircle /> : <UserPlus />,
+    icon: log.action.includes('APP') ? <Building2 className="w-4 h-4" /> :
+          log.action.includes('SECURITY') ? <CheckCircle2 className="w-4 h-4" /> :
+          log.action.includes('PAYMENT') || log.action.includes('INVOICE') ? <TrendingUp className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />,
     variant: log.action.includes('FAILED') ? 'destructive' : 
              log.action.includes('CREATED') ? 'success' : 'default',
   }));
