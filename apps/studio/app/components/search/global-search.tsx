@@ -7,7 +7,8 @@ import {
     CommandGroup,
     CommandInput,
     CommandItem,
-    CommandList
+    CommandList,
+    useDebounce
 } from "@maatwork/ui";
 import { useRouter } from "next/navigation";
 import { Building2, Users, GitMerge, Search } from "lucide-react";
@@ -16,6 +17,7 @@ import { globalSearchAction } from "./search-actions";
 export function GlobalSearch() {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState("");
+    const debouncedQuery = useDebounce(query, 300);
     const [results, setResults] = useState<{ apps: any[], clients: any[], leads: any[] }>({ apps: [], clients: [], leads: [] });
     const router = useRouter();
 
@@ -31,12 +33,12 @@ export function GlobalSearch() {
     }, []);
 
     useEffect(() => {
-        if (query.length > 1) {
-            globalSearchAction(query).then(setResults);
+        if (debouncedQuery.length > 1) {
+            globalSearchAction(debouncedQuery).then(setResults);
         } else {
             setResults({ apps: [], clients: [], leads: [] });
         }
-    }, [query]);
+    }, [debouncedQuery]);
 
     const runCommand = (command: () => void) => {
         setOpen(false);

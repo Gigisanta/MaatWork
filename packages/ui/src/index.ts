@@ -3,6 +3,7 @@ export * from "./lib/utils";
 
 // Hooks
 export * from "./hooks/use-toast";
+export * from "./hooks/use-debounce";
 
 // Components
 export * from "./components/ui/button";
