@@ -7,17 +7,17 @@ import {
     CommandGroup,
     CommandInput,
     CommandItem,
-    CommandList,
-    useDebounce
+    CommandList
 } from "@maatwork/ui";
 import { useRouter } from "next/navigation";
 import { Building2, Users, GitMerge, Search } from "lucide-react";
 import { globalSearchAction } from "./search-actions";
+import { useDebounce } from "@maatwork/ui";
 
 export function GlobalSearch() {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState("");
-    const debouncedQuery = useDebounce(query, 300);
+    const debouncedQuery = useDebounce(query, 300); // ⚡ Bolt: Debounce search to reduce server load
     const [results, setResults] = useState<{ apps: any[], clients: any[], leads: any[] }>({ apps: [], clients: [], leads: [] });
     const router = useRouter();
 
@@ -33,11 +33,17 @@ export function GlobalSearch() {
     }, []);
 
     useEffect(() => {
+        let active = true;
         if (debouncedQuery.length > 1) {
-            globalSearchAction(debouncedQuery).then(setResults);
+            globalSearchAction(debouncedQuery).then((results) => {
+                if (active) setResults(results);
+            });
         } else {
             setResults({ apps: [], clients: [], leads: [] });
         }
+        return () => {
+            active = false;
+        };
     }, [debouncedQuery]);
 
     const runCommand = (command: () => void) => {

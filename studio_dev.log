@@ -1,0 +1,123 @@
+
+> maatwork-monorepo@1.0.0 dev:studio /app
+> pnpm pre-dev && turbo run dev --filter=studio
+
+
+> maatwork-monorepo@1.0.0 pre-dev /app
+> tsx scripts/pre-dev.ts
+
+🚀 Running pre-dev checks...
+✅ Pre-dev checks passed. Ready to launch!
+• turbo 2.8.10
+• Packages in scope: studio
+• Running dev in 1 packages
+• Remote caching disabled
+studio:dev: cache bypass, force executing 0700c888242887a1
+studio:dev:
+studio:dev: > studio@1.0.0 dev /app/apps/studio
+studio:dev: > next dev -p 3001
+studio:dev:
+studio:dev: ⚠ Invalid next.config.mjs options detected:
+studio:dev: ⚠     Unrecognized key(s) in object: 'turbopack' at "experimental"
+studio:dev: ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+studio:dev: ▲ Next.js 16.1.6 (Turbopack)
+studio:dev: - Local:         http://localhost:3001
+studio:dev: - Network:       http://192.168.0.2:3001
+studio:dev: - Experiments (use with caution):
+studio:dev:   ? turbopack (invalid experimental key)
+studio:dev:
+studio:dev: ✓ Starting...
+studio:dev: ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+studio:dev: ✓ Ready in 1484ms
+studio:dev: [31m[auth][error][0m MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+studio:dev:     at assertConfig (/app/apps/studio/.next/dev/server/edge/chunks/94e01_@auth_core_9b9e5d48._.js:511:16)
+studio:dev:     at Auth (/app/apps/studio/.next/dev/server/edge/chunks/94e01_@auth_core_9b9e5d48._.js:5052:270)
+studio:dev: ○ Compiling /login ...
+studio:dev: Could not fetch apps, database might not be initialized: Error [NeonDbError]: password authentication failed for user 'username'
+studio:dev:     at async RootLayout (app/layout.tsx:15:15)
+studio:dev:   13 |   let allApps: any[] = [];
+studio:dev:   14 |   try {
+studio:dev: > 15 |     allApps = await db.select().from(apps);
+studio:dev:      |               ^
+studio:dev:   16 |   } catch (error) {
+studio:dev:   17 |     console.warn("Could not fetch apps, database might not be initialized:", error);
+studio:dev:   18 |   } {
+studio:dev:   severity: '',
+studio:dev:   code: '',
+studio:dev:   detail: undefined,
+studio:dev:   hint: undefined,
+studio:dev:   position: undefined,
+studio:dev:   internalPosition: undefined,
+studio:dev:   internalQuery: undefined,
+studio:dev:   where: undefined,
+studio:dev:   schema: undefined,
+studio:dev:   table: undefined,
+studio:dev:   column: undefined,
+studio:dev:   dataType: undefined,
+studio:dev:   constraint: undefined,
+studio:dev:   file: undefined,
+studio:dev:   line: undefined,
+studio:dev:   routine: undefined,
+studio:dev:   sourceError: undefined
+studio:dev: }
+studio:dev:  GET /login 200 in 5.7s (compile: 4.6s, proxy.ts: 5ms, render: 1151ms)
+studio:dev: [31m[auth][error][0m MissingSecret: Please define a `secret`. Read more at https://errors.authjs.dev#missingsecret
+studio:dev:     at assertConfig (/app/apps/studio/.next/dev/server/edge/chunks/94e01_@auth_core_9b9e5d48._.js:511:16)
+studio:dev:     at Auth (/app/apps/studio/.next/dev/server/edge/chunks/94e01_@auth_core_9b9e5d48._.js:5052:270)
+studio:dev: Could not fetch apps, database might not be initialized: Error [NeonDbError]: password authentication failed for user 'username'
+studio:dev:     at async RootLayout (app/layout.tsx:15:15)
+studio:dev:   13 |   let allApps: any[] = [];
+studio:dev:   14 |   try {
+studio:dev: > 15 |     allApps = await db.select().from(apps);
+studio:dev:      |               ^
+studio:dev:   16 |   } catch (error) {
+studio:dev:   17 |     console.warn("Could not fetch apps, database might not be initialized:", error);
+studio:dev:   18 |   } {
+studio:dev:   severity: '',
+studio:dev:   code: '',
+studio:dev:   detail: undefined,
+studio:dev:   hint: undefined,
+studio:dev:   position: undefined,
+studio:dev:   internalPosition: undefined,
+studio:dev:   internalQuery: undefined,
+studio:dev:   where: undefined,
+studio:dev:   schema: undefined,
+studio:dev:   table: undefined,
+studio:dev:   column: undefined,
+studio:dev:   dataType: undefined,
+studio:dev:   constraint: undefined,
+studio:dev:   file: undefined,
+studio:dev:   line: undefined,
+studio:dev:   routine: undefined,
+studio:dev:   sourceError: undefined
+studio:dev: }
+studio:dev:  GET /login 200 in 285ms (compile: 6ms, proxy.ts: 6ms, render: 273ms)
+studio:dev: ⨯ Error [NeonDbError]: password authentication failed for user 'username'
+studio:dev:     at async globalSearchAction (app/components/search/search-actions.ts:10:51)
+studio:dev:    8 |     if (!query || query.length < 2) return { apps: [], clients: [], leads: [] };
+studio:dev:    9 |
+studio:dev: > 10 |     const [foundApps, foundClients, foundLeads] = await Promise.all([
+studio:dev:      |                                                   ^
+studio:dev:   11 |         db.select().from(apps).where(or(ilike(apps.name, `%${query}%`), ilike(apps.slug, `%${query}%`))).limit(5),
+studio:dev:   12 |         db.select().from(clients).where(or(ilike(clients.name, `%${query}%`), ilike(clients.email, `%${query}%`))).limit(5),
+studio:dev:   13 |         db.select().from(leads).where(or(ilike(leads.name, `%${query}%`), ilike(leads.company, `%${query}%`))).limit(5) {
+studio:dev:   severity: '',
+studio:dev:   code: '',
+studio:dev:   detail: undefined,
+studio:dev:   hint: undefined,
+studio:dev:   position: undefined,
+studio:dev:   internalPosition: undefined,
+studio:dev:   internalQuery: undefined,
+studio:dev:   where: undefined,
+studio:dev:   schema: undefined,
+studio:dev:   table: undefined,
+studio:dev:   column: undefined,
+studio:dev:   dataType: undefined,
+studio:dev:   constraint: undefined,
+studio:dev:   file: undefined,
+studio:dev:   line: undefined,
+studio:dev:   routine: undefined,
+studio:dev:   sourceError: undefined,
+studio:dev:   digest: '1979159583'
+studio:dev: }
+studio:dev:  POST /login 500 in 700ms (compile: 4ms, proxy.ts: 7ms, render: 689ms)

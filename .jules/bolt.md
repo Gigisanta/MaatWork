@@ -1,3 +1,3 @@
-## 2025-05-22 - [Search Debouncing]
-**Learning:** The Global Search component was firing server-side actions on every keystroke, leading to high network usage and unnecessary DB queries.
-**Action:** Implement a reusable `useDebounce` hook in `@maatwork/ui` and apply it to search inputs to reduce API pressure.
+## 2025-05-15 - [Debounce Search to Reduce Server Load]
+**Learning:** In applications using Next.js Server Actions for real-time search, every keystroke triggers a network request and potential database query. Implementing a simple debouncing strategy on the client side can significantly reduce server load and improve perceived performance by avoiding unnecessary updates.
+**Action:** Always check if real-time search components are debounced, especially when they trigger server-side operations.
