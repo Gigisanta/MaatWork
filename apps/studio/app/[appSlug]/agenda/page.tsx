@@ -47,13 +47,13 @@ export default async function AgendaPage({ params }: { params: Promise<{ appSlug
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center border rounded-lg overflow-hidden bg-card">
-            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-none border-r">
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-none border-r" aria-label="Anterior">
               <ChevronLeft className="h-4 w-4" />
             </Button>
             <div className="px-4 py-2 text-sm font-medium border-r bg-muted/20">
               Hoy, {today.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })}
             </div>
-            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-none">
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-none" aria-label="Siguiente">
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>

@@ -1,0 +1,3 @@
+## 2025-05-14 - [A11y/UX] Accessibility for Icon-only Buttons and Hidden Actions
+**Learning:** Icon-only buttons (common with Lucide icons) and unlabeled search inputs were missing `aria-label` attributes, making them inaccessible to screen readers. Additionally, action buttons that only appear on hover (like the 'Delete' button in the Todo List) are unreachable for keyboard users if they don't also appear on focus.
+**Action:** Always add `aria-label` to icon-only buttons and ensure interactive elements hidden on hover are made visible on focus using `focus-visible:opacity-100`. Match the `aria-label` language to the surrounding UI.

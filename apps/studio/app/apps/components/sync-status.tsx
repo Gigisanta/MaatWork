@@ -43,7 +43,7 @@ export function SyncStatus({ appId }: { appId: string }) {
                 <Badge variant="outline" className="text-[10px] text-green-500 border-green-500/20 bg-green-500/5">
                     <CheckCircle2 className="w-3 h-3 mr-1" /> Al día
                 </Badge>
-                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={loadStatus}>
+                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={loadStatus} aria-label="Recargar estado">
                     <RefreshCcw className="w-3 h-3" />
                 </Button>
             </div>

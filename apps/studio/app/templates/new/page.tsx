@@ -55,7 +55,7 @@ export default function NewTemplatePage() {
     <div className="max-w-2xl mx-auto space-y-8 py-10">
       <div className="flex items-center gap-4">
         <Link href="/templates">
-            <Button variant="ghost" size="icon" className="rounded-full hover:bg-white/5">
+            <Button variant="ghost" size="icon" className="rounded-full hover:bg-white/5" aria-label="Volver">
                 <ArrowLeft className="w-5 h-5" />
             </Button>
         </Link>

@@ -51,7 +51,7 @@ async function ClientsList({ appId }: { appId: string }) {
               <TableCell className="text-sm">{client.email || '—'}</TableCell>
               <TableCell className="text-sm font-mono">{client.phone || '—'}</TableCell>
               <TableCell className="text-right">
-                <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-accent">
+                <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-accent" aria-label="Más opciones">
                   <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </TableCell>
@@ -96,6 +96,7 @@ export default async function ClientsPage({ params }: { params: Promise<{ appSlu
           <input 
             type="search" 
             placeholder="Buscar por nombre, email o ID..." 
+            aria-label="Buscar clientes"
             className="w-full bg-transparent pl-9 pr-4 py-2 text-sm focus:outline-none"
           />
         </div>
