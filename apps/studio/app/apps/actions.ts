@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { founderActionClient } from "@maatwork/auth/safe-action";
+import { founderActionClient, ActionError } from "@maatwork/auth/safe-action";
 import { db } from "@maatwork/database";
 import { apps, users, pricing_plans, app_subscriptions, activity_logs, audit_logs, app_invoices } from "@maatwork/database/schema";
 import { eq } from "drizzle-orm";
@@ -37,7 +37,7 @@ export const createAppAction = founderActionClient
     });
     
     if (existing) {
-        throw new Error("El subdominio ya está en uso.");
+        throw new ActionError("El subdominio ya está en uso.");
     }
 
     let finalGithubRepo = githubRepo;
