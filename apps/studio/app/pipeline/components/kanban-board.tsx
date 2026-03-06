@@ -1,31 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { updateLeadStatus, getLeadById } from "../lead-actions";
+import { updateLeadStatus, getLeadById, getLeads } from "../lead-actions";
 import { toast } from "sonner";
 import { KanbanCard } from "./kanban-card";
 import { LeadDetailSheet } from "./lead-detail-sheet";
 import { Input } from "@maatwork/ui";
 import { Search, Filter, Kanban as KanbanIcon } from "lucide-react";
 
-export interface Activity {
-  id: string;
-  type: 'call' | 'email' | 'meeting' | 'note' | 'task' | 'system';
-  content: string;
-  createdAt: Date;
-}
-
-export interface Lead {
-  id: string;
-  name: string;
-  email: string | null;
-  company: string | null;
-  status: "new" | "contacted" | "proposal" | "won" | "lost";
-  value: string | null;
-  notes: string | null;
-  createdAt: Date | null;
-  activities?: Activity[];
-}
+export type PipelineLeads = Awaited<ReturnType<typeof getLeads>>;
+export type Lead = PipelineLeads[number];
+export type Activity = NonNullable<Lead['activities']>[number];
 
 const STAGES: { id: Lead["status"]; title: string }[] = [
   { id: "new", title: "Nuevos" },
@@ -88,8 +73,8 @@ export function KanbanBoard({ initialLeads }: { initialLeads: Lead[] }) {
   const refreshSelectedLead = async (id: string) => {
     const fullLead = await getLeadById(id);
     if (fullLead) {
-      setSelectedLead(fullLead as any);
-      setLeads(prev => prev.map(l => l.id === id ? (fullLead as any) : l));
+      setSelectedLead(fullLead as Lead);
+      setLeads(prev => prev.map(l => l.id === id ? (fullLead as Lead) : l));
     }
   };
 

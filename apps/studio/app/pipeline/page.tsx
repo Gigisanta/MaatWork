@@ -20,7 +20,7 @@ export default async function PipelinePage() {
       </div>
       
       <Suspense fallback={<PipelineSkeleton />}>
-        <KanbanBoard initialLeads={initialLeads as any} />
+        <KanbanBoard initialLeads={initialLeads} />
       </Suspense>
     </div>
   );
