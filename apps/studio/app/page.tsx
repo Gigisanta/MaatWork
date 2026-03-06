@@ -20,12 +20,29 @@ import {
   AlertCircle, 
   TrendingUp,
   UserPlus,
-  TrendingUp,
   Clock,
   Github,
-  ExternalLink,
-  TrendingUp
+  ExternalLink
 } from "lucide-react";
+
+const ACTIVITY_METADATA_CACHE = new Map<string, { title: string; icon: React.ReactNode; variant: ActivityItem['variant'] }>();
+
+function getActivityMetadata(action: string) {
+  const cached = ACTIVITY_METADATA_CACHE.get(action);
+  if (cached) return cached;
+
+  const title = action.replace(/_/g, ' ');
+  const icon = action.includes('APP') ? <Building2 className="w-4 h-4" /> :
+               action.includes('SECURITY') ? <CheckCircle2 className="w-4 h-4" /> :
+               action.includes('PAYMENT') || action.includes('INVOICE') ? <TrendingUp className="w-4 h-4" /> :
+               <UserPlus className="w-4 h-4" />;
+  const variant = action.includes('FAILED') ? 'destructive' :
+                  action.includes('CREATED') ? 'success' : 'default';
+
+  const metadata = { title, icon, variant };
+  ACTIVITY_METADATA_CACHE.set(action, metadata);
+  return metadata;
+}
 
 async function StudioKPIs() {
   const [
@@ -125,17 +142,17 @@ export default async function StudioHomePage() {
     getRecentLogs()
   ]);
 
-  const activityItems: ActivityItem[] = logs.map(log => ({
-    id: log.id,
-    title: log.action.replace(/_/g, ' '),
-    description: log.details && typeof log.details === 'object' ? Object.entries(log.details).map(([k, v]) => `${k}: ${v}`).join(', ') : '',
-    timestamp: log.createdAt?.toLocaleString() || "Reciente",
-    icon: log.action.includes('APP') ? <Building2 className="w-4 h-4" /> :
-          log.action.includes('SECURITY') ? <CheckCircle2 className="w-4 h-4" /> :
-          log.action.includes('PAYMENT') || log.action.includes('INVOICE') ? <TrendingUp className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />,
-    variant: log.action.includes('FAILED') ? 'destructive' : 
-             log.action.includes('CREATED') ? 'success' : 'default',
-  }));
+  const activityItems: ActivityItem[] = logs.map(log => {
+    const { title, icon, variant } = getActivityMetadata(log.action);
+    return {
+      id: log.id,
+      title,
+      description: log.details && typeof log.details === 'object' ? Object.entries(log.details).map(([k, v]) => `${k}: ${v}`).join(', ') : '',
+      timestamp: log.createdAt?.toLocaleString() || "Reciente",
+      icon,
+      variant,
+    };
+  });
 
   return (
     <div className="space-y-8">
