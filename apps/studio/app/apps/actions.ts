@@ -91,7 +91,8 @@ export const createAppAction = founderActionClient
             }
         } catch (error) {
             console.error("[PROVISIONING ERROR]", error);
-            provisioningStatus = 'failed';
+            const errorMessage = error instanceof Error ? error.message : "Unknown error";
+            throw new Error(`Auto-provisioning failed: ${errorMessage}`);
         }
     }
 
