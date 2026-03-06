@@ -4,12 +4,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { 
-  Button, 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
   DialogTrigger,
   Form,
   FormControl,
@@ -18,7 +18,7 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  useToast
+  useToast,
 } from "@maatwork/ui";
 import { createClientAction, createClientSchema } from "./actions";
 import { useAction } from "next-safe-action/hooks";
@@ -44,19 +44,27 @@ export function AddClientDialog({ appId }: { appId: string }) {
       if (data?.success) {
         toast({
           title: "Client created",
-          description: `Successfully added ${data.client.name} to the database.`,
+          description: `Successfully added ${data.client?.name} to the database.`,
         });
         setOpen(false);
         form.reset();
+      } else if (data?.error) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: data.error,
+        });
       }
     },
     onError: ({ error }) => {
-        toast({
-            variant: "destructive",
-            title: "Error",
-            description: (error.serverError as string) || "Failed to create client. Please try again.",
-        });
-    }
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description:
+          (error.serverError as string) ||
+          "Failed to create client. Please try again.",
+      });
+    },
   });
 
   function onSubmit(values: z.infer<typeof clientFormSchema>) {
@@ -73,7 +81,10 @@ export function AddClientDialog({ appId }: { appId: string }) {
           <DialogTitle>Add New Client</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 pt-4"
+          >
             <FormField
               control={form.control}
               name="name"
