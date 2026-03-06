@@ -29,20 +29,23 @@ import {
 
 async function StudioKPIs() {
   const [
-    counts,
+    [appsStats],
+    [usersStats],
     invoicesList,
   ] = await Promise.all([
-    // Group related counts in a single query if possible, or parallelize
-    Promise.all([
-      db.select({ count: count() }).from(apps),
-      db.select({ count: count() }).from(users),
-      db.select({ count: count() }).from(apps).where(sql`${apps.githubRepo} IS NOT NULL`),
-      db.select({ count: count() }).from(apps).where(sql`${apps.vercelUrl} IS NOT NULL`),
-    ]),
+    db.select({
+      appsCount: count(),
+      githubCount: sql<number>`count(*) filter (where ${apps.githubRepo} is not null)::int`,
+      vercelCount: sql<number>`count(*) filter (where ${apps.vercelUrl} is not null)::int`,
+    }).from(apps),
+    db.select({ count: count() }).from(users),
     db.select({ amount: app_invoices.amount, status: app_invoices.status }).from(app_invoices),
   ]);
 
-  const [appsCount, usersCount, githubCount, vercelCount] = counts.map(r => r[0]);
+  const appsCount = { count: appsStats.appsCount };
+  const usersCount = { count: usersStats.count };
+  const githubCount = { count: appsStats.githubCount };
+  const vercelCount = { count: appsStats.vercelCount };
 
   const mrr = invoicesList
     .filter(inv => inv.status === 'paid')
