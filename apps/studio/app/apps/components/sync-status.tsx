@@ -7,7 +7,7 @@ import { RefreshCcw, GitPullRequest, AlertTriangle, CheckCircle2 } from "lucide-
 import { toast } from "sonner";
 
 export function SyncStatus({ appId }: { appId: string }) {
-    const [status, setStatus] = useState<any>(null);
+    const [status, setStatus] = useState<Awaited<ReturnType<typeof checkAppSyncStatus>> | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSyncing, setIsSyncing] = useState(false);
 
