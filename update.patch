@@ -1,0 +1,21 @@
+--- apps/studio/app/components/search/global-search.tsx
++++ apps/studio/app/components/search/global-search.tsx
+@@ -10,12 +10,17 @@
+ import { Building2, Users, GitMerge, Search } from "lucide-react";
+ import { globalSearchAction } from "./search-actions";
+ import { useDebounce } from "@maatwork/ui";
++import { apps, clients, leads } from "@maatwork/database/schema";
++
++type App = typeof apps.$inferSelect;
++type Client = typeof clients.$inferSelect;
++type Lead = typeof leads.$inferSelect;
+
+ export function GlobalSearch() {
+     const [open, setOpen] = useState(false);
+     const [query, setQuery] = useState("");
+     const debouncedQuery = useDebounce(query, 300); // ⚡ Bolt: Debounce search to reduce server load
+-    const [results, setResults] = useState<{ apps: any[], clients: any[], leads: any[] }>({ apps: [], clients: [], leads: [] });
++    const [results, setResults] = useState<{ apps: App[], clients: Client[], leads: Lead[] }>({ apps: [], clients: [], leads: [] });
+     const router = useRouter();
+
+     useEffect(() => {

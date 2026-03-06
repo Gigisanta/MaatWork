@@ -181,7 +181,7 @@ export const createAppAction = founderActionClient
   });
 const toggleAppStatusSchema = z.object({
   appId: z.string(),
-  currentStatus: z.enum(["active", "past_due", "canceled", "trialing"]),
+  currentStatus: z.enum(["active", "past_due", "canceled", "trialing", "inactive"]),
 });
 
 export const toggleAppStatusAction = founderActionClient

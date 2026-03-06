@@ -65,7 +65,7 @@ export async function updateLead(id: string, data: Partial<typeof leads.$inferIn
   }
 }
 
-export async function addLeadActivity(leadId: string, data: { type: 'call' | 'email' | 'meeting' | 'note' | 'task' | 'system'; content: string; metadata?: any }) {
+export async function addLeadActivity(leadId: string, data: { type: 'call' | 'email' | 'meeting' | 'note' | 'task' | 'system'; content: string; metadata?: Record<string, unknown> }) {
   try {
     const id = uuid();
     await db.insert(lead_activities).values({

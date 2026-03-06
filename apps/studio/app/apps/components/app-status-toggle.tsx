@@ -8,7 +8,7 @@ import { Power, PowerOff, Loader2 } from "lucide-react";
 
 interface AppStatusToggleProps {
   appId: string;
-  currentStatus: "active" | "past_due" | "canceled" | "trialing";
+  currentStatus: "active" | "past_due" | "canceled" | "trialing" | "inactive";
 }
 
 export function AppStatusToggle({ appId, currentStatus }: AppStatusToggleProps) {
