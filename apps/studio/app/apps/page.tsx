@@ -26,7 +26,7 @@ const getAppsWithStats = cache(async () => {
         WHERE ${app_invoices.appId} = ${apps.id} 
         AND ${app_invoices.status} = 'paid'
       ), 0)`,
-      status: sql<string>`COALESCE((
+      status: sql<"active" | "past_due" | "canceled" | "trialing">`COALESCE((
         SELECT ${app_subscriptions.status}
         FROM ${app_subscriptions}
         WHERE ${app_subscriptions.appId} = ${apps.id}
@@ -168,7 +168,7 @@ export default async function AppsPage() {
                     <div className="flex justify-end gap-2">
                        <AppStatusToggle 
                         appId={t.id} 
-                        currentStatus={t.status as any} 
+                        currentStatus={t.status}
                       />
                       <Button variant="ghost" size="sm" asChild className="hover:bg-white/5">
                         <Link href={`/apps/${t.id}`}>Gestionar</Link>
