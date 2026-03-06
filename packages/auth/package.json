@@ -2,6 +2,9 @@
   "name": "@maatwork/auth",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "test": "vitest run"
+  },
   "exports": {
     ".": "./src/index.ts",
     "./middleware": "./src/middleware.ts",
@@ -15,7 +18,9 @@
   "devDependencies": {
     "@maatwork/config": "workspace:*",
     "@maatwork/database": "workspace:*",
+    "@vitest/coverage-v8": "^4.0.18",
     "next": "^16.1.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^4.0.18"
   }
 }
