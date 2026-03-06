@@ -39,9 +39,8 @@ export function AddClientDialog({ appId }: { appId: string }) {
     },
   });
 
-// @ts-ignore
-  const { execute, isPending } = useAction(createClientAction as any, {
-    onSuccess: ({ data }: any) => {
+  const { execute, isExecuting } = useAction(createClientAction, {
+    onSuccess: ({ data }) => {
       if (data?.success) {
         toast({
           title: "Client created",
@@ -51,7 +50,7 @@ export function AddClientDialog({ appId }: { appId: string }) {
         form.reset();
       }
     },
-    onError: ({ error }: any) => {
+    onError: ({ error }) => {
         toast({
             variant: "destructive",
             title: "Error",
@@ -115,8 +114,8 @@ export function AddClientDialog({ appId }: { appId: string }) {
               )}
             />
             <div className="flex justify-end pt-4">
-              <Button type="submit" disabled={isPending}>
-                {isPending ? "Creating..." : "Save Client"}
+              <Button type="submit" disabled={isExecuting}>
+                {isExecuting ? "Creating..." : "Save Client"}
               </Button>
             </div>
           </form>

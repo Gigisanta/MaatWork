@@ -17,7 +17,7 @@ export default function CreateAppPage() {
   const [template, setTemplate] = useState<"base" | "natatorio" | "peluqueria">("base");
   const { toast } = useToast();
 
-  const { execute, isExecuting, result } = useAction(createAppAction as any, {
+  const { execute, isExecuting } = useAction(createAppAction, {
     onSuccess: () => {
       toast({
         title: "Client Onboarding Started",
