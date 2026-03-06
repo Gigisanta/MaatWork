@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 
 import { lead_activities } from "@maatwork/database/schema";
 import { desc } from "drizzle-orm";
+import { v4 as uuid } from "uuid";
 
 export async function updateLeadStatus(id: string, status: "new" | "contacted" | "proposal" | "won" | "lost") {
   try {
@@ -66,7 +67,7 @@ export async function updateLead(id: string, data: Partial<typeof leads.$inferIn
 
 export async function addLeadActivity(leadId: string, data: { type: 'call' | 'email' | 'meeting' | 'note' | 'task' | 'system'; content: string; metadata?: any }) {
   try {
-    const id = Math.random().toString(36).substring(7);
+    const id = uuid();
     await db.insert(lead_activities).values({
       id,
       leadId,
