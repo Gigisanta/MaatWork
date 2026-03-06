@@ -27,7 +27,7 @@ export interface Lead {
   activities?: Activity[];
 }
 
-const STAGES = [
+const STAGES: { id: Lead["status"]; title: string }[] = [
   { id: "new", title: "Nuevos" },
   { id: "contacted", title: "Contactados" },
   { id: "proposal", title: "Propuesta" },
@@ -50,7 +50,7 @@ export function KanbanBoard({ initialLeads }: { initialLeads: Lead[] }) {
     e.preventDefault();
   };
 
-  const handleDrop = async (e: React.DragEvent, stageId: string) => {
+  const handleDrop = async (e: React.DragEvent, stageId: Lead["status"]) => {
     e.preventDefault();
     const id = e.dataTransfer.getData("text/plain");
     
@@ -60,9 +60,9 @@ export function KanbanBoard({ initialLeads }: { initialLeads: Lead[] }) {
 
       // Optimistic update
       const prevLeads = [...leads];
-      setLeads((prev) => prev.map((l) => (l.id === id ? { ...l, status: stageId as any } : l)));
+      setLeads((prev) => prev.map((l) => (l.id === id ? { ...l, status: stageId } : l)));
       
-      const result = await updateLeadStatus(id, stageId as any);
+      const result = await updateLeadStatus(id, stageId);
       
       if (!result.success) {
         setLeads(prevLeads);
