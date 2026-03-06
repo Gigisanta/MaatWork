@@ -26,7 +26,7 @@ const getAppsWithStats = cache(async () => {
         WHERE ${app_invoices.appId} = ${apps.id} 
         AND ${app_invoices.status} = 'paid'
       ), 0)`,
-      status: sql<"active" | "past_due" | "canceled" | "trialing" | "inactive">`COALESCE((
+      status: sql<"active" | "past_due" | "canceled" | "trialing">`COALESCE((
         SELECT ${app_subscriptions.status}
         FROM ${app_subscriptions}
         WHERE ${app_subscriptions.appId} = ${apps.id}
