@@ -78,10 +78,11 @@ export function KanbanBoard({ initialLeads }: { initialLeads: Lead[] }) {
     }
   };
 
+  const lowerSearchQuery = searchQuery.toLowerCase();
   const filteredLeads = leads.filter(lead => 
-    lead.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (lead.company?.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    (lead.email?.toLowerCase().includes(searchQuery.toLowerCase()))
+    lead.name.toLowerCase().includes(lowerSearchQuery) ||
+    (lead.company?.toLowerCase().includes(lowerSearchQuery)) ||
+    (lead.email?.toLowerCase().includes(lowerSearchQuery))
   );
 
   return (
